@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-wrap">
+    
+    <form method="POST" class="login-menu">
+        <h2>Авторизация</h2>
+        {{ form.hidden_tag() }}
+        <div class="login-div">
+            {{ form.email.label }}
+            {{ form.email(class="form-control" ,placeholder="Почта") }}
+        </div>
+        <div class="login-div">
+            {{ form.password.label }}
+            {{ form.password(class="form-control" ,placeholder="Пароль") }}
+        </div>
+        <div class="login-div row">
+            {{ form.remember_me() }} {{ form.remember_me.label }}
+        </div>
+        <div class="login-div center full ">
+            {{ form.submit(class="red full nomargin") }}
+        </div>
+
+        <div  style="margin-top: 30px;display: flex;
+        align-items: center;justify-content: space-between;">
+            <a href="{{ url_for('forgot_password') }}">Забыли пароль?</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+        </div>
+    </form>
+    
+</div>
+{% endblock %}

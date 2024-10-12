@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="news-filter">
+        <form method="GET">
+            <label for="category">Фильтр по категориям:</label>
+            <select name="category" id="category">
+                <option value="all">Все</option>
+                <option value="team">Команда</option>
+                <option value="matches">Матчи</option>
+                <option value="store">Магазин</option>
+                <option value="events">События</option>
+            </select>
+            <button type="submit">Фильтр</button>
+        </form>
+    </div>
+
+    <div class="news-list">
+        {% for news in news_list %}
+        <div class="news-card card" onclick="redirect(`{{ url_for('news_detail', news_id=news.id) }}`)">
+            <img src="{{ news.image_url }}" alt="{{ news.title }}">
+            <div class="news-content">
+                <h3>{{ news.title }}</h3>
+                <div class="date">{{ news.date }}</div>
+                
+                
+                <div class="categories"><div class="category">{{ news.category }}</div></div>
+                <p class="news-description">{{ news.short_description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

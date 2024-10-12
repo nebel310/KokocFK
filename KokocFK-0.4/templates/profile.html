@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Профиль пользователя</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+        </div>
+        <div>
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+        </div>
+        <div>
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    <div>
+        <button class="cta-button" style="margin-top: 10px;"><a href="{{ url_for('logout') }}">Выход</a></button>
+    </div>
+{% endblock %}

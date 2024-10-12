@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    <title>{% block title %}Кокос Групп{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+
+
+<body>
+    <header>
+        <div class="spacer"></div>
+        <div class="menu-link hidden attached">
+            <a href="{{ url_for('profile') }}">Аккаунт</a>
+            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('news') }}">Новости</a>
+            <a href="{{ url_for('index') }}">Команда</a>
+            <a href="{{ url_for('index') }}">Матчи</a>
+            <a href="{{ url_for('products') }}">Магазин</a>
+            <a href="{{ url_for('index') }}">Контакты</a>
+            
+        </div>
+
+        <nav class="attached fromTop staggerElements">
+            <div class="logo-wrapper">
+                <img src="" alt="" class="logo">
+                <a class="h2style" href="{{ url_for('index') }}"><h2>Kokos Group</h2></a>
+                
+            </div>
+            <div class="links-wrapper middle">
+               
+            </div>
+            
+            <div class="links-wrapper last">
+                
+                <a href="{{ url_for('profile') }}"><box-icon name='cart' color='#ffffff' ></box-icon></a>
+                
+                <div class="menu"><box-icon name='menu' color='#ffffff' ></box-icon> 
+                     
+                </div>
+            </div>
+
+            
+            
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Основной контент страницы -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-el">
+            
+            <h3>О клубе</h3>
+            <p>ФК "Кокос групп" - профессиональный футбольный клуб, основанный в 2024 году.</p>
+        </div>
+        <div class="footer-el">
+            <h3>Контакты    </h3>
+            <p>Телефон: +7 (123) 456-7890</p>
+            <p>Email: info@kokosgroup.ru</p>
+        </div>
+        <div class="footer-el">
+            <h3>Социальные сети</h3>
+            <a href="https://yandex.ru">Rutube</a>
+            <a href="https://yandex.ru">Telegram</a>
+            <a href="https://yandex.ru">VK</a>
+        </div>
+        
+    </footer>
+</body>
+<script>
+
+document.querySelector(".menu").addEventListener("click", ()=> {
+    document.querySelector(".menu-link").classList.toggle("hidden")
+})
+
+
+
+if (window.scrollY == 0) {
+    document.querySelector("nav").classList.add("attached")
+    
+} else {
+    document.querySelector("nav").classList.remove("attached")
+}
+
+
+addEventListener("scroll", (event) => {
+if (window.scrollY == 0) {
+    document.querySelector("nav").classList.add("attached")
+    document.querySelector(".menu-link").classList.add("attached")
+    
+} else {
+    document.querySelector("nav").classList.remove("attached")
+    document.querySelector(".menu-link").classList.remove("attached")
+}
+
+});
+
+
+
+
+
+window.redirect = function redirect(link) {
+    window.location.href = link
+    
+}
+
+  
+document.addEventListener('DOMContentLoaded', () => {
+    const animateFromBottom = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                anime({
+                    targets: entry.target,
+                    translateY: [100, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    delay: 600,
+                    begin: () => observer.unobserve(entry.target)
+                });
+            }
+        });
+    };
+
+    const animateFromLeft = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                anime({
+                    targets: entry.target,
+                    translateX: [-100, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    delay: 600,
+                    begin: () => observer.unobserve(entry.target)
+                });
+            }
+        });
+    };
+
+
+    const animateFromTop = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                anime({
+                    targets: entry.target,
+                    translateY: [-100, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    delay: 600,
+                    begin: () => observer.unobserve(entry.target)
+                });
+            }
+        });
+    };
+
+
+    const animateFromRight = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                anime({
+                    targets: entry.target,
+                    translateX: [100, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    delay: 600,
+                    begin: () => observer.unobserve(entry.target)
+                });
+            }
+        });
+    };
+
+
+    const staggerElements = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              console.log(entry.target)
+                anime({
+                    targets: entry.target.children,
+                    translateY: [100, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    
+                    delay: anime.stagger(200, { start: 700 }),
+                    begin: () => observer.unobserve(entry.target)
+                });
+            }
+        });
+    };
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+
+
+    
+
+
+
+    const fromTopObserver = new IntersectionObserver(animateFromTop, observerOptions)
+    const fromRightObserver = new IntersectionObserver(animateFromRight, observerOptions)
+    const fromBottomObserver = new IntersectionObserver(animateFromBottom, observerOptions);
+    const fromLeftObserver = new IntersectionObserver(animateFromLeft, observerOptions);
+    const staggerObserver = new IntersectionObserver(staggerElements, observerOptions);
+
+    
+    document.querySelectorAll('.fromRight').forEach(el => fromRightObserver.observe(el));
+    document.querySelectorAll('.fromBottom').forEach(el => fromBottomObserver.observe(el));
+    document.querySelectorAll('.fromLeft').forEach(el => fromLeftObserver.observe(el));
+    document.querySelectorAll('.staggerElements').forEach(el => staggerObserver.observe(el));
+    document.querySelectorAll('.fromTop').forEach(el => fromTopObserver.observe(el));
+});
+
+</script>
+</html>
